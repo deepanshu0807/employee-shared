@@ -19,7 +19,6 @@ dependencies:
   firebase_core:
   firebase_auth: ^0.20.0+1
   cloud_firestore:
-  google_sign_in:
   firebase_storage:
   firebase_performance:
   
@@ -47,7 +46,6 @@ dependencies:
 
   url_launcher:
   animated_text:
-  http_multi_server: ^2.2.0
 
 dev_dependencies:
   flutter_test:

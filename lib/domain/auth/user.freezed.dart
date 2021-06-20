@@ -21,7 +21,8 @@ class _$EmployeeUserTearOff {
       String picUrl,
       @required PhoneNumber phoneNumber,
       @required UserRole role,
-      @required DateTime lastSignInDateTime}) {
+      @required DateTime lastSignInDateTime,
+      @required bool isApproved}) {
     return _EmployeeUser(
       uId: uId,
       name: name,
@@ -30,6 +31,7 @@ class _$EmployeeUserTearOff {
       phoneNumber: phoneNumber,
       role: role,
       lastSignInDateTime: lastSignInDateTime,
+      isApproved: isApproved,
     );
   }
 }
@@ -47,6 +49,7 @@ mixin _$EmployeeUser {
   PhoneNumber get phoneNumber;
   UserRole get role;
   DateTime get lastSignInDateTime;
+  bool get isApproved;
 
   @JsonKey(ignore: true)
   $EmployeeUserCopyWith<EmployeeUser> get copyWith;
@@ -64,7 +67,8 @@ abstract class $EmployeeUserCopyWith<$Res> {
       String picUrl,
       PhoneNumber phoneNumber,
       UserRole role,
-      DateTime lastSignInDateTime});
+      DateTime lastSignInDateTime,
+      bool isApproved});
 
   $UserRoleCopyWith<$Res> get role;
 }
@@ -86,6 +90,7 @@ class _$EmployeeUserCopyWithImpl<$Res> implements $EmployeeUserCopyWith<$Res> {
     Object phoneNumber = freezed,
     Object role = freezed,
     Object lastSignInDateTime = freezed,
+    Object isApproved = freezed,
   }) {
     return _then(_value.copyWith(
       uId: uId == freezed ? _value.uId : uId as UniqueId,
@@ -101,6 +106,8 @@ class _$EmployeeUserCopyWithImpl<$Res> implements $EmployeeUserCopyWith<$Res> {
       lastSignInDateTime: lastSignInDateTime == freezed
           ? _value.lastSignInDateTime
           : lastSignInDateTime as DateTime,
+      isApproved:
+          isApproved == freezed ? _value.isApproved : isApproved as bool,
     ));
   }
 
@@ -129,7 +136,8 @@ abstract class _$EmployeeUserCopyWith<$Res>
       String picUrl,
       PhoneNumber phoneNumber,
       UserRole role,
-      DateTime lastSignInDateTime});
+      DateTime lastSignInDateTime,
+      bool isApproved});
 
   @override
   $UserRoleCopyWith<$Res> get role;
@@ -154,6 +162,7 @@ class __$EmployeeUserCopyWithImpl<$Res> extends _$EmployeeUserCopyWithImpl<$Res>
     Object phoneNumber = freezed,
     Object role = freezed,
     Object lastSignInDateTime = freezed,
+    Object isApproved = freezed,
   }) {
     return _then(_EmployeeUser(
       uId: uId == freezed ? _value.uId : uId as UniqueId,
@@ -169,6 +178,8 @@ class __$EmployeeUserCopyWithImpl<$Res> extends _$EmployeeUserCopyWithImpl<$Res>
       lastSignInDateTime: lastSignInDateTime == freezed
           ? _value.lastSignInDateTime
           : lastSignInDateTime as DateTime,
+      isApproved:
+          isApproved == freezed ? _value.isApproved : isApproved as bool,
     ));
   }
 }
@@ -182,13 +193,15 @@ class _$_EmployeeUser with DiagnosticableTreeMixin implements _EmployeeUser {
       this.picUrl,
       @required this.phoneNumber,
       @required this.role,
-      @required this.lastSignInDateTime})
+      @required this.lastSignInDateTime,
+      @required this.isApproved})
       : assert(uId != null),
         assert(name != null),
         assert(emailAddress != null),
         assert(phoneNumber != null),
         assert(role != null),
-        assert(lastSignInDateTime != null);
+        assert(lastSignInDateTime != null),
+        assert(isApproved != null);
 
   @override
   final UniqueId uId;
@@ -204,10 +217,12 @@ class _$_EmployeeUser with DiagnosticableTreeMixin implements _EmployeeUser {
   final UserRole role;
   @override
   final DateTime lastSignInDateTime;
+  @override
+  final bool isApproved;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'EmployeeUser(uId: $uId, name: $name, emailAddress: $emailAddress, picUrl: $picUrl, phoneNumber: $phoneNumber, role: $role, lastSignInDateTime: $lastSignInDateTime)';
+    return 'EmployeeUser(uId: $uId, name: $name, emailAddress: $emailAddress, picUrl: $picUrl, phoneNumber: $phoneNumber, role: $role, lastSignInDateTime: $lastSignInDateTime, isApproved: $isApproved)';
   }
 
   @override
@@ -221,7 +236,8 @@ class _$_EmployeeUser with DiagnosticableTreeMixin implements _EmployeeUser {
       ..add(DiagnosticsProperty('picUrl', picUrl))
       ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
       ..add(DiagnosticsProperty('role', role))
-      ..add(DiagnosticsProperty('lastSignInDateTime', lastSignInDateTime));
+      ..add(DiagnosticsProperty('lastSignInDateTime', lastSignInDateTime))
+      ..add(DiagnosticsProperty('isApproved', isApproved));
   }
 
   @override
@@ -244,7 +260,10 @@ class _$_EmployeeUser with DiagnosticableTreeMixin implements _EmployeeUser {
                 const DeepCollectionEquality().equals(other.role, role)) &&
             (identical(other.lastSignInDateTime, lastSignInDateTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.lastSignInDateTime, lastSignInDateTime)));
+                    .equals(other.lastSignInDateTime, lastSignInDateTime)) &&
+            (identical(other.isApproved, isApproved) ||
+                const DeepCollectionEquality()
+                    .equals(other.isApproved, isApproved)));
   }
 
   @override
@@ -256,7 +275,8 @@ class _$_EmployeeUser with DiagnosticableTreeMixin implements _EmployeeUser {
       const DeepCollectionEquality().hash(picUrl) ^
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(role) ^
-      const DeepCollectionEquality().hash(lastSignInDateTime);
+      const DeepCollectionEquality().hash(lastSignInDateTime) ^
+      const DeepCollectionEquality().hash(isApproved);
 
   @JsonKey(ignore: true)
   @override
@@ -272,7 +292,8 @@ abstract class _EmployeeUser implements EmployeeUser {
       String picUrl,
       @required PhoneNumber phoneNumber,
       @required UserRole role,
-      @required DateTime lastSignInDateTime}) = _$_EmployeeUser;
+      @required DateTime lastSignInDateTime,
+      @required bool isApproved}) = _$_EmployeeUser;
 
   @override
   UniqueId get uId;
@@ -288,6 +309,8 @@ abstract class _EmployeeUser implements EmployeeUser {
   UserRole get role;
   @override
   DateTime get lastSignInDateTime;
+  @override
+  bool get isApproved;
   @override
   @JsonKey(ignore: true)
   _$EmployeeUserCopyWith<_EmployeeUser> get copyWith;

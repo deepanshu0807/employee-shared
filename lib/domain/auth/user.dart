@@ -16,6 +16,7 @@ abstract class EmployeeUser with _$EmployeeUser {
     @required PhoneNumber phoneNumber,
     @required UserRole role,
     @required DateTime lastSignInDateTime,
+    @required bool isApproved,
   }) = _EmployeeUser;
 }
 
@@ -28,6 +29,7 @@ extension EmployeeUserX on EmployeeUser {
       "picUrl": picUrl,
       "phoneNumber": phoneNumber.getOrElse(""),
       "role": role.toValueString(),
+      "isApproved": isApproved,
       "lastSignInDateTime": lastSignInDateTime?.millisecondsSinceEpoch ?? 0,
     };
   }

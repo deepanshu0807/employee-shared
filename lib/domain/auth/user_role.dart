@@ -11,8 +11,8 @@ abstract class UserRole with _$UserRole {
 extension UserRoleSX on UserRole {
   String toValueString() {
     return map(
-      employee: (_) => "EMPLOYEE",
-      student: (_) => "STUDENT",
+      employee: (_) => "Employee",
+      student: (_) => "Student",
     );
   }
 }
@@ -20,10 +20,10 @@ extension UserRoleSX on UserRole {
 extension UserRoleX on String {
   UserRole toUserRole() {
     switch (this) {
-      case "EMPLOYEE":
+      case "Employee":
         return const UserRole.employee();
         break;
-      case "STUDENT":
+      case "Student":
         return const UserRole.student();
         break;
 

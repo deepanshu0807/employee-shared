@@ -14,6 +14,7 @@ extension FirebaseUserExt on User {
       role: UserRole.employee(), //TODO
       phoneNumber: PhoneNumber(phoneNumber),
       picUrl: photoURL,
+      isApproved: false,
       lastSignInDateTime: metadata.lastSignInTime,
     );
   }

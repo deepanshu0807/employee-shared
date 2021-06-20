@@ -24,6 +24,7 @@ class _$EmployeeUserDtosTearOff {
       @required String phoneNumber,
       @required String role,
       @required int lastSignInTime,
+      @required bool isApproved,
       String picUrl}) {
     return _EmployeeUserDtos(
       id: id,
@@ -32,6 +33,7 @@ class _$EmployeeUserDtosTearOff {
       phoneNumber: phoneNumber,
       role: role,
       lastSignInTime: lastSignInTime,
+      isApproved: isApproved,
       picUrl: picUrl,
     );
   }
@@ -54,6 +56,7 @@ mixin _$EmployeeUserDtos {
   String get phoneNumber;
   String get role;
   int get lastSignInTime;
+  bool get isApproved;
   String get picUrl;
 
   Map<String, dynamic> toJson();
@@ -73,6 +76,7 @@ abstract class $EmployeeUserDtosCopyWith<$Res> {
       String phoneNumber,
       String role,
       int lastSignInTime,
+      bool isApproved,
       String picUrl});
 }
 
@@ -93,6 +97,7 @@ class _$EmployeeUserDtosCopyWithImpl<$Res>
     Object phoneNumber = freezed,
     Object role = freezed,
     Object lastSignInTime = freezed,
+    Object isApproved = freezed,
     Object picUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -105,6 +110,8 @@ class _$EmployeeUserDtosCopyWithImpl<$Res>
       lastSignInTime: lastSignInTime == freezed
           ? _value.lastSignInTime
           : lastSignInTime as int,
+      isApproved:
+          isApproved == freezed ? _value.isApproved : isApproved as bool,
       picUrl: picUrl == freezed ? _value.picUrl : picUrl as String,
     ));
   }
@@ -124,6 +131,7 @@ abstract class _$EmployeeUserDtosCopyWith<$Res>
       String phoneNumber,
       String role,
       int lastSignInTime,
+      bool isApproved,
       String picUrl});
 }
 
@@ -146,6 +154,7 @@ class __$EmployeeUserDtosCopyWithImpl<$Res>
     Object phoneNumber = freezed,
     Object role = freezed,
     Object lastSignInTime = freezed,
+    Object isApproved = freezed,
     Object picUrl = freezed,
   }) {
     return _then(_EmployeeUserDtos(
@@ -158,6 +167,8 @@ class __$EmployeeUserDtosCopyWithImpl<$Res>
       lastSignInTime: lastSignInTime == freezed
           ? _value.lastSignInTime
           : lastSignInTime as int,
+      isApproved:
+          isApproved == freezed ? _value.isApproved : isApproved as bool,
       picUrl: picUrl == freezed ? _value.picUrl : picUrl as String,
     ));
   }
@@ -176,13 +187,15 @@ class _$_EmployeeUserDtos
       @required this.phoneNumber,
       @required this.role,
       @required this.lastSignInTime,
+      @required this.isApproved,
       this.picUrl})
       : assert(id != null),
         assert(email != null),
         assert(name != null),
         assert(phoneNumber != null),
         assert(role != null),
-        assert(lastSignInTime != null);
+        assert(lastSignInTime != null),
+        assert(isApproved != null);
 
   factory _$_EmployeeUserDtos.fromJson(Map<String, dynamic> json) =>
       _$_$_EmployeeUserDtosFromJson(json);
@@ -200,11 +213,13 @@ class _$_EmployeeUserDtos
   @override
   final int lastSignInTime;
   @override
+  final bool isApproved;
+  @override
   final String picUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'EmployeeUserDtos(id: $id, email: $email, name: $name, phoneNumber: $phoneNumber, role: $role, lastSignInTime: $lastSignInTime, picUrl: $picUrl)';
+    return 'EmployeeUserDtos(id: $id, email: $email, name: $name, phoneNumber: $phoneNumber, role: $role, lastSignInTime: $lastSignInTime, isApproved: $isApproved, picUrl: $picUrl)';
   }
 
   @override
@@ -218,6 +233,7 @@ class _$_EmployeeUserDtos
       ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
       ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('lastSignInTime', lastSignInTime))
+      ..add(DiagnosticsProperty('isApproved', isApproved))
       ..add(DiagnosticsProperty('picUrl', picUrl));
   }
 
@@ -239,6 +255,9 @@ class _$_EmployeeUserDtos
             (identical(other.lastSignInTime, lastSignInTime) ||
                 const DeepCollectionEquality()
                     .equals(other.lastSignInTime, lastSignInTime)) &&
+            (identical(other.isApproved, isApproved) ||
+                const DeepCollectionEquality()
+                    .equals(other.isApproved, isApproved)) &&
             (identical(other.picUrl, picUrl) ||
                 const DeepCollectionEquality().equals(other.picUrl, picUrl)));
   }
@@ -252,6 +271,7 @@ class _$_EmployeeUserDtos
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(role) ^
       const DeepCollectionEquality().hash(lastSignInTime) ^
+      const DeepCollectionEquality().hash(isApproved) ^
       const DeepCollectionEquality().hash(picUrl);
 
   @JsonKey(ignore: true)
@@ -273,6 +293,7 @@ abstract class _EmployeeUserDtos implements EmployeeUserDtos {
       @required String phoneNumber,
       @required String role,
       @required int lastSignInTime,
+      @required bool isApproved,
       String picUrl}) = _$_EmployeeUserDtos;
 
   factory _EmployeeUserDtos.fromJson(Map<String, dynamic> json) =
@@ -290,6 +311,8 @@ abstract class _EmployeeUserDtos implements EmployeeUserDtos {
   String get role;
   @override
   int get lastSignInTime;
+  @override
+  bool get isApproved;
   @override
   String get picUrl;
   @override

@@ -89,10 +89,6 @@ class FirebaseAuthService implements IAuth {
         default:
           return const Left(AuthFailure.invalidEmailPasswordCombination());
       }
-      // return const Left(AuthFailure.invalidEmailPasswordCombination());
-    } catch (e) {
-      debugPrint("ERR::$e");
-      return const Left(AuthFailure.serverError());
     }
   }
 
@@ -101,9 +97,9 @@ class FirebaseAuthService implements IAuth {
       {EmailAddress email, Password password, Name name, UserRole role}) async {
     final emailStr = email.getOrCrash();
     final pwdStr = password.getOrCrash();
-    final nameStr = name.getOrCrash();
-    final roleStr = role.toValueString();
-    final c = await _firestore.users();
+    // final nameStr = name.getOrCrash();
+    // final roleStr = role.toValueString();
+    // final c = await _firestore.users();
 
     UserCredential authResult;
     try {
@@ -112,17 +108,41 @@ class FirebaseAuthService implements IAuth {
         password: pwdStr,
       );
       if (authResult.user != null) {
-        await c.doc(authResult.user.uid).set({
-          'name': nameStr,
-          'emailAddress': emailStr,
-          'role': roleStr,
-        });
-        return const Right(unit);
+        final empUser = EmployeeUser(
+            uId: UniqueId.fromUniqueString(authResult.user.uid),
+            name: name,
+            emailAddress: email,
+            phoneNumber: PhoneNumber(""),
+            role: role,
+            lastSignInDateTime: DateTime.now(),
+            isApproved: false);
+        try {
+          final cRef = await _firestore.users();
+          final cDto = EmployeeUserDtos.fromDomain(empUser);
+          final jsonX = cDto.toJson();
+          await cRef.doc(cDto.id).set(jsonX, SetOptions(merge: true));
+          return right(unit);
+        } catch (e) {
+          // These error codes and messages aren't in the documentation AFAIK, experiment in the debugger to find out about them.
+          debugPrint("ERR:$e\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
+          //return left(const InfraFailure.serverError());
+        }
+        // await c.doc(authResult.user.uid).set({
+        //   'name': nameStr,
+        //   'emailAddress': emailStr,
+        //   'role': roleStr,
+        //   "uId": authResult.user.uid,
+        //   'isApproved': false,
+        //   "picUrl": "",
+        //   "phoneNumber": "",
+        // });
+        // return const Right(unit);
       } else {
         return const Left(AuthFailure.accountExistWithDifferentCredential());
       }
     } on PlatformException catch (e) {
       debugPrint("PlatformException $emailStr $e");
+
       switch (e.code) {
         case "ERROR_USER_NOT_FOUND":
           return const Left(AuthFailure.userNotFound());
@@ -133,10 +153,6 @@ class FirebaseAuthService implements IAuth {
         default:
           return const Left(AuthFailure.invalidEmailPasswordCombination());
       }
-      // return const Left(AuthFailure.invalidEmailPasswordCombination());
-    } catch (e) {
-      debugPrint("ERR::$e");
-      return const Left(AuthFailure.serverError());
     }
   }
 

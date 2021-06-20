@@ -15,21 +15,19 @@ abstract class EmployeeUserDtos with _$EmployeeUserDtos {
       @required String phoneNumber,
       @required String role,
       @required int lastSignInTime,
+      @required bool isApproved,
       String picUrl}) = _EmployeeUserDtos;
 
   factory EmployeeUserDtos.fromDomain(EmployeeUser user) {
     return EmployeeUserDtos(
-      // id: p.id.getOrCrash(),
       id: user.uId.getOrCrash(),
       email: user.emailAddress.getOrElse("NA"),
       phoneNumber: user.phoneNumber.getOrElse(""),
       role: user.role.toValueString(),
       lastSignInTime: user.lastSignInDateTime.millisecondsSinceEpoch,
       name: user.name.getOrCrash(),
+      isApproved: user.isApproved,
       picUrl: user.picUrl,
-      // locations:
-      //     p.locations.map((e) => SisLocationDtos.fromDomain(e)).toList(),
-      // locPoint: GeoFirePoint(loc.lat, loc.lng),
     );
   }
 
@@ -54,13 +52,14 @@ class EmployeeUserDtosConverter
 extension EmployeeUserDtosX on EmployeeUserDtos {
   EmployeeUser toDomain() {
     return EmployeeUser(
-      uId: UniqueId.fromUniqueString(this.id),
+      uId: UniqueId.fromUniqueString(this.id ?? ""),
       emailAddress: EmailAddress(email),
       phoneNumber: PhoneNumber(phoneNumber),
       role: role.toUserRole(),
       lastSignInDateTime:
           DateTime.fromMillisecondsSinceEpoch(lastSignInTime ?? 0),
       name: Name(name),
+      isApproved: isApproved,
       picUrl: picUrl,
     );
   }

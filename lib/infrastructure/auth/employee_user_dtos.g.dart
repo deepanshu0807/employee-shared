@@ -14,6 +14,7 @@ _$_EmployeeUserDtos _$_$_EmployeeUserDtosFromJson(Map<String, dynamic> json) {
     phoneNumber: json['phoneNumber'] as String,
     role: json['role'] as String,
     lastSignInTime: json['lastSignInTime'] as int,
+    isApproved: json['isApproved'] as bool,
     picUrl: json['picUrl'] as String,
   );
 }
@@ -27,5 +28,6 @@ Map<String, dynamic> _$_$_EmployeeUserDtosToJson(
       'phoneNumber': instance.phoneNumber,
       'role': instance.role,
       'lastSignInTime': instance.lastSignInTime,
+      'isApproved': instance.isApproved,
       'picUrl': instance.picUrl,
     };
