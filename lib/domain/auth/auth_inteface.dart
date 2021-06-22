@@ -23,6 +23,7 @@ abstract class IAuth {
     @required Password password,
     @required Name name,
     @required UserRole role,
+    @required PhoneNumber number,
   });
 
   Future<Either<AuthFailure, Unit>> forgotPassword({

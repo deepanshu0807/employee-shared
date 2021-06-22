@@ -94,12 +94,13 @@ class FirebaseAuthService implements IAuth {
 
   @override
   Future<Either<AuthFailure, Unit>> registerEmailAndPassword(
-      {EmailAddress email, Password password, Name name, UserRole role}) async {
+      {EmailAddress email,
+      Password password,
+      Name name,
+      UserRole role,
+      PhoneNumber number}) async {
     final emailStr = email.getOrCrash();
     final pwdStr = password.getOrCrash();
-    // final nameStr = name.getOrCrash();
-    // final roleStr = role.toValueString();
-    // final c = await _firestore.users();
 
     UserCredential authResult;
     try {
@@ -112,7 +113,7 @@ class FirebaseAuthService implements IAuth {
             uId: UniqueId.fromUniqueString(authResult.user.uid),
             name: name,
             emailAddress: email,
-            phoneNumber: PhoneNumber(""),
+            phoneNumber: number,
             role: role,
             lastSignInDateTime: DateTime.now(),
             isApproved: false);
@@ -125,18 +126,8 @@ class FirebaseAuthService implements IAuth {
         } catch (e) {
           // These error codes and messages aren't in the documentation AFAIK, experiment in the debugger to find out about them.
           debugPrint("ERR:$e\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
-          //return left(const InfraFailure.serverError());
+          return const Left(AuthFailure.serverError());
         }
-        // await c.doc(authResult.user.uid).set({
-        //   'name': nameStr,
-        //   'emailAddress': emailStr,
-        //   'role': roleStr,
-        //   "uId": authResult.user.uid,
-        //   'isApproved': false,
-        //   "picUrl": "",
-        //   "phoneNumber": "",
-        // });
-        // return const Right(unit);
       } else {
         return const Left(AuthFailure.accountExistWithDifferentCredential());
       }
