@@ -1,7 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:employee_shared/domain/auth/attendance.dart';
+import 'package:employee_shared/domain/auth/attendance_list.dart';
 import 'package:employee_shared/domain/auth/i_employeeuser_repo.dart';
 import 'package:employee_shared/employee_shared.dart';
+import 'package:employee_shared/infrastructure/auth/attendance_list_dtos.dart';
 import 'package:flutter/material.dart';
+
+import 'attendance_dtos.dart';
 
 class EmployeeUserRepo implements IEmployeeUserRepo {
   final FirebaseFirestore _firestore;
@@ -38,5 +43,26 @@ class EmployeeUserRepo implements IEmployeeUserRepo {
       debugPrint("ERR:$e\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
       return left(const InfraFailure.serverError());
     }
+  }
+
+  @override
+  Stream<Either<InfraFailure, AttendanceList>> getAttendanceList(
+      EmployeeUser user) async* {
+    final c =
+        await _firestore.attendanceOfUser(EmployeeUserDtos.fromDomain(user));
+
+    yield* c.snapshots().map((doc) {
+      print(doc.data());
+      if (doc.data() != null) {
+        return right<InfraFailure, AttendanceList>(
+            AttendanceListDto.fromJson(doc.data()).toDomain());
+      } else {
+        return left<InfraFailure, AttendanceList>(
+            const InfraFailure.notFound());
+      }
+    }).onErrorReturnWith((e) {
+      debugPrint("Unexpected Error $e");
+      return left(const InfraFailure.serverError());
+    });
   }
 }

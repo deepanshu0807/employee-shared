@@ -25,7 +25,7 @@ abstract class EmployeeUserDtos with _$EmployeeUserDtos {
       phoneNumber: user.phoneNumber.getOrElse(""),
       role: user.role.toValueString(),
       lastSignInTime: user.lastSignInDateTime.millisecondsSinceEpoch,
-      name: user.name.getOrCrash(),
+      name: user.name.getOrElse("NA"),
       isApproved: user.isApproved,
       picUrl: user.picUrl,
     );
@@ -58,7 +58,7 @@ extension EmployeeUserDtosX on EmployeeUserDtos {
       role: role.toUserRole(),
       lastSignInDateTime:
           DateTime.fromMillisecondsSinceEpoch(lastSignInTime ?? 0),
-      name: Name(name),
+      name: Name(name) ?? "NA",
       isApproved: isApproved,
       picUrl: picUrl,
     );
